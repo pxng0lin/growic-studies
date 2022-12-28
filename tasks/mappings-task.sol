@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 /// @title Growic task answers
 /// @author pxng0lin
-/// @notice Examples of mapping used to answer questions from task 2 in the Growic 2022 course
+/// @notice Examples of structs used to answer questions from task 3 in the Growic 2022 course
 
 contract GrowicBank {
 
