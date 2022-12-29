@@ -49,16 +49,23 @@ contract GrowicBank {
 
 
     function setUserDetails(string memory _name, uint256 _age) public {
-        kycEntries.push(Customer_kyc(_name, _age)); // if more than 1 entry it will save but cannot be retrieved with getUserDetail function
+        // kycEntries.push(Customer_kyc(_name, _age)); 
+        /**
+         * the issue here was memory, you have to use storage for perm save of the user details
+         * this way it can be retrieve by the get function later
+        */
+
+        Customer_kyc storage _kyc = kycByCustomer[msg.sender]; // storage not memory
+        
+        _kyc.name = _name;
+        _kyc.age = _age;
     }
 
-    function getUserDetail() public view returns(string memory name, uint256 age) {
-     Customer_kyc storage _kyc = kycEntries[0]; // will only bring back the first entry
-        return (_kyc.name, _kyc.age);
+    function getUserDetail() public view returns(Customer_kyc memory) {
+        return kycByCustomer[msg.sender]; // now the user details are saved, they can be retrieved
+        
     }
-    
-    // }
-
+        
     // to support receiving ETH by default
     receive() external payable {}
 
