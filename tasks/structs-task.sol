@@ -28,12 +28,13 @@ contract GrowicBank {
         balance[_addr] += _toAdd;
     }
 
-    function deposit(address _customer, uint256 _deposit) external {
+    function deposit(uint256 _deposit) external {
         /** 
          * Added an if statement so we can add to the balance, rather than just override the current one
          * source: https://www.tutorialspoint.com/solidity/solidity_if_else_statement.htm
         */
-
+        address _customer = msg.sender;
+        
         if(balance[_customer] > 0) {
             updateBalance(_customer, _deposit);
         } else {
